@@ -20,7 +20,7 @@ try:
     assistant = client.beta.assistants.create(
         name="AI assistant",
         model=deployment_name,
-        instructions="You are an AI assistant that analyzes uploaded files and answers user questions interactively.For writing labels on graphs and charts, please use the `NotoSansJP-Regular.ttf` font included in the ZIP file.",
+        instructions="You are an AI assistant that analyzes uploaded files and answers user questions interactively.Please use the NotoSansJP.ttf font included in the ZIP file when writing labels on graphs and charts.",
         tools=[{"type": "code_interpreter"}],
         tool_resources={"code_interpreter": {"file_ids": [file.id]}},
     )
@@ -46,7 +46,11 @@ try:
         )
 
         # アシスタントの応答を取得
-        run = client.beta.threads.runs.create(thread_id=thread.id, assistant_id=assistant.id)
+        run = client.beta.threads.runs.create(
+            thread_id=thread.id, 
+            assistant_id=assistant.id,
+            instructions="Please use the NotoSansJP.ttf font included in the ZIP file when writing labels on graphs and charts.",
+        )
 
         print("\nWaiting for response...")
         while True:
