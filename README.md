@@ -25,7 +25,7 @@ AssistantAPI は現在プレビューであり、日本語フォントをアッ�
     pip install -r requirements.txt
     ```
 
-3. .env ファイルを作成し、必要な環境変数を設定します。
+3. 必要な環境変数を設定します。VSCode からデバッグ実行をする場合は、拡張機能を利用し .env ファイルに設定を記述してください。
 
     ```plaintext
     AZURE_OPENAI_ENDPOINT="https://your-openai-endpoint"
@@ -60,4 +60,4 @@ AssistantAPI は現在プレビューであり、日本語フォントをアッ�
 
 ## デバッグ
 
-VSCode を使用してデバッグするには、`.vscode/launch.json` ファイルを使用します。VSCode のデバッグタブで `Python Debugger: main.py` 構成を選択し、デバッグを開始します。
+VSCode からデバッグ実行する場合は、`.vscode/launch.json` ファイルが用意されています。`F5` キーを押してデバッグ実行を行うことができます。
