@@ -9,12 +9,12 @@ api_key = os.getenv("AZURE_OPENAI_API_KEY")
 api_version = os.getenv("API_VERSION")
 deployment_name = os.getenv("DEPLOYMENT_NAME")
 
-client = AzureOpenAI(api_key=api_key, api_version=api_version, azure_endpoint=api_endpoint)
-
 try:
+    client = AzureOpenAI(api_key=api_key, api_version=api_version, azure_endpoint=api_endpoint)
+    
     # ファイルをアップロード
     file = client.files.create(file=open(FILE_PATH, "rb"), purpose='assistants')
-    print(f"File uploaded successfully. File ID: {file.id}")
+    print(f"File uploaded successfully. File ID: {file.id}", flush=True)
 
     # アシスタントを作成
     assistant = client.beta.assistants.create(
