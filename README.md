@@ -61,3 +61,53 @@ AssistantAPI は現在プレビューであり、日本語フォントをアッ�
 ## デバッグ
 
 VSCode からデバッグ実行する場合は、`.vscode/launch.json` ファイルが用意されています。`F5` キーを押してデバッグ実行を行うことができます。
+
+## azdを使う場合
+
+azdを使ってインフラのデプロイを行うこともできます。
+事前にazdのインストールとログインを行ってください。
+
+```sh
+azd login
+```
+
+インフラを行う場合は、以下のコマンドを実行してください。
+
+```sh
+azd provision
+```
+
+### コマンドの実行
+
+azdを使ってインフラをデプロイした場合、必要な環境変数が自動的に設定されます。
+azdを使ったコマンド実行はShell Script、もしくはPowerShell Scriptを使って行うことができます。
+
+Shell Scriptの例:
+
+事前にshell scriptを実行権限を付与してください。
+
+```sh
+chmod +x main.sh
+```
+
+その上で、以下のコマンドを実行してください。
+
+```sh
+./main.sh
+```
+
+PowerShell Scriptの例:
+事前にPowerShell Scriptを実行権限を付与してください。
+例えば下記のようなコマンドを実行してください。
+
+```ps1
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+```
+
+その上で、以下のコマンドを実行してください。
+
+```ps1
+.\main.ps1
+```
+
+これらのコマンドではazdの環境変数をマシンの環境変数に設定した上で、Pythonスクリプトを実行します。
