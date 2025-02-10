@@ -9,18 +9,17 @@ api_key = os.getenv("AZURE_OPENAI_API_KEY")
 api_version = os.getenv("API_VERSION")
 deployment_name = os.getenv("DEPLOYMENT_NAME")
 
-client = AzureOpenAI(api_key=api_key, api_version=api_version, azure_endpoint=api_endpoint)
-
 try:
+    client = AzureOpenAI(api_key=api_key, api_version=api_version, azure_endpoint=api_endpoint)
     # ファイルをアップロード
     file = client.files.create(file=open(FILE_PATH, "rb"), purpose='assistants')
-    print(f"File uploaded successfully. File ID: {file.id}")
+    print(f"File uploaded successfully. File ID: {file.id}", flush=True)
 
     # アシスタントを作成
     assistant = client.beta.assistants.create(
         name="AI assistant",
         model=deployment_name,
-        instructions="You are an AI assistant that analyzes uploaded files and answers user questions interactively.For writing labels on graphs and charts, please use the `NotoSansJP-Regular.ttf` font included in the ZIP file.",
+        instructions="You are an AI assistant that analyzes uploaded files and answers user questions interactively. Please answer in Japanese.",
         tools=[{"type": "code_interpreter"}],
         tool_resources={"code_interpreter": {"file_ids": [file.id]}},
     )
@@ -46,7 +45,11 @@ try:
         )
 
         # アシスタントの応答を取得
-        run = client.beta.threads.runs.create(thread_id=thread.id, assistant_id=assistant.id)
+        run = client.beta.threads.runs.create(
+            thread_id=thread.id, 
+            assistant_id=assistant.id,
+            instructions="Please use the NotoSansJP.ttf font included in the ZIP file when writing titles, labels and legends on chart image.",
+        )
 
         print("\nWaiting for response...")
         while True:
